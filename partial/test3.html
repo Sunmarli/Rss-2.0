@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add RSS Feed</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Add RSS Feed</h1>
+        <form id="addForm">
+            <label for="urlInput">Enter RSS Feed URL:</label>
+            <input type="url" id="urlInput" name="url" required>
+            <button type="submit">Add</button>
+        </form>
+
+        <!-- Display the list of RSS feed URLs -->
+        <h2>RSS Feed URLs</h2>
+        <ul id="rssList">
+            <!-- List items will be dynamically added here -->
+        </ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

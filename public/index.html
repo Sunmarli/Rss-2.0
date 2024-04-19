@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed</title>
+    <link rel="stylesheet" href="../style.css">
+    <!-- Include Vue.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.11/dist/vue.global.prod.js"></script>
+</head>
+<body>
+    <h1>News Feed</h1>
+    <a href="partial/test3.html"><h2>Add custom RSS</h2></a>
+    <div id="app">
+        <!-- Dropdown menu to select categories -->
+        <label for="category">Select Category:</label>
+        <select v-model="selectedCategory" @change="filterNews" id="category">
+            <option value="">All Categories</option>
+            <option v-for="category in categories" :value="category">{{ category }}</option>
+        </select>
+        <hr>
+
+        <div id="articles" class="grid-container">
+            <div v-for="article in filteredArticles" :key="article.title" class="news-item">
+                <div class="author">
+                    <p>{{ article.author }} - <span>{{ formatPubDate(article.pubDate) }}</span></p>
+                </div>
+                <div v-if="article.mediaUrl !== 'MediaUrl not available'" class="image">
+                    <a :href="article.link"><img :src="article.mediaUrl" class="news-image"></a>
+                </div>
+                <div class="description">
+                    <a :href="article.link"><h2>{{ article.title }}</h2></a>
+                    <p>{{ article.description }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNews();
+        });
+
+        const app = Vue.createApp({
+            data() {
+                return {
+                    newsItems: [],
+                    categories: [],
+                    selectedCategory: '',
+                };
+            },
+            mounted() {
+                this.loadNews();
+            },
+            methods: {
+                async loadNews() {
+                    try {
+                        const response = await fetch("/news");
+                        if (!response.ok) {
+                            throw new Error("Failed to fetch news");
+                        }
+                        const newsData = await response.json();
+                        this.newsItems = newsData;
+                        this.extractCategories();
+                    } catch (error) {
+                        console.error("Error:", error);
+                    }
+                },
+                extractCategories() {
+                    const categories = new Set();
+                    this.newsItems.forEach(item => {
+                        item.categories.forEach(category => {
+                            categories.add(category.content);
+                        });
+                    });
+                    this.categories = Array.from(categories);
+                },
+                filterNews() {
+                    if (this.selectedCategory === '') {
+                        this.filteredArticles = this.newsItems;
+                    } else {
+                        this.filteredArticles = this.newsItems.filter(item => {
+                            return item.categories.some(category => category.content === this.selectedCategory);
+                        });
+                    }
+                },
+                formatPubDate(pubDate) {
+                    const date = new Date(pubDate);
+                    const dayOfWeek = date.toLocaleDateString('en', { weekday: 'short' });
+                    const dayOfMonth = date.getDate();
+                    const month = date.toLocaleDateString('en', { month: 'short' });
+                    return `${dayOfWeek}, ${dayOfMonth} ${month}`;
+                },
+            },
+            computed: {
+                filteredArticles() {
+                    if (this.selectedCategory === '') {
+                        return this.newsItems;
+                    } else {
+                        return this.newsItems.filter(item => {
+                            return item.categories.some(category => category.content === this.selectedCategory);
+                        });
+                    }
+                }
+            }
+        });
+
+        app.mount("#app");
+    </script>
+</body>
+</html>

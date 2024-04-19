@@ -1,0 +1,178 @@
+body {
+    display: initial; /* Reset display property */
+   
+    /* display: flex; */
+    justify-content: center; /* Horizontally center the container */
+    align-items: center; /* Vertically center the container */
+    min-height: 100vh; /* Set minimum height to the full viewport height */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    background-color: #F1F1F1; /* Set background color */
+    font-family: sans-serif; /* Set font family */
+    font-size: 16px; /* Set base font size */
+    color: #455A64; /* Set text color */
+    line-height: 1.5; /* Set line height */
+    text-align: center; /* Align text to the center */
+    text-decoration: none; /* Remove text decoration */
+    -webkit-font-smoothing: antialiased; /* Enable antialiased font rendering */
+}
+div {
+    display: flex;
+    unicode-bidi: isolate;
+    margin: 0; /* Remove default margins */
+    padding: 0; 
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px; /* Set a maximum width to prevent it from becoming too wide on larger screens */
+    margin: 0 auto; /* Center the element horizontally */
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 300px); /* Three columns of 300 pixels each */
+    grid-gap: 20px; /* Spacing between grid items */
+   /* Padding around the grid */
+}
+
+.news-item {
+    height: 300px; /* Set height of each grid item */
+    width: 300px; /* Set width of each grid item */
+    background-color: #ebe8e8; /* Set background color */
+    display: grid;
+    grid-template-rows: 150px auto 50px; /* Set grid template rows */
+    overflow: hidden; /* Hide overflowing content */
+    border-radius: 5px; /* Apply border radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Apply box shadow */
+}
+
+.news-item img {
+    width: 100%; /* Ensure image fills the container horizontally */
+    height: 100%; /* Ensure image fills the container vertically */
+    object-fit: cover; /* Cover aspect ratio */
+    grid-row: 1; /* Position image in first row */
+    grid-column: span 3; /* Span image across all three columns */
+}
+
+.news-item h2 {
+    grid-row: 2; /* Position h2 in second row */
+    grid-column: span 3; /* Span h2 across all three columns */
+    margin-top: 10px; /* Add top margin */
+    padding-right: 10px;
+    font-size: 1.2em; /* Set font size */
+    unicode-bidi: isolate;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit title to two lines */
+    -webkit-box-orient: vertical; /* Set vertical layout */
+    max-height: 100%; /* Adjust based on font size and line height */
+}
+.news-item h2 a {
+    color: rgb(32, 28, 28); /* Change the color of the links */
+    text-decoration: none; /* Remove underline from the links */
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    padding-right: 10px;
+}
+
+.news-item h2 a:hover {
+    color: grey; /* Change the color of the links on hover */
+}
+a {
+    color: rgb(53, 53, 54); /* Your custom link color */
+    text-decoration: none; /* Remove default underline */
+}
+
+a:hover {
+    color: rgb(122, 122, 122); /* Your custom link color on hover */
+    text-decoration: none; /* Add underline on hover */
+}
+
+
+.news-item .author{
+    color: #818789;
+    margin-left: 10px;
+    grid-row: 3; /* Position p in third row */
+    line-height: 1.5; /* Set line height */
+    unicode-bidi: isolate;
+    white-space: nowrap; /* Prevent line wrapping */
+  
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    
+}
+
+.news-item .description h2 {
+    /* Add your styling here */
+    grid-row: 1;
+     /* Position p in third row */
+    margin-left: 10px; /* Adjust the left margin to move it to the right */
+    margin-top: 10px; /* Add top margin */
+    unicode-bidi: isolate;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit title to two lines */
+    -webkit-box-orient: vertical; /* Set vertical layout */
+    max-height: 100%; /* Adjust based on font size and line height */
+}
+
+.news-item .description{
+    /* Add your styling here */
+    grid-row: span 2;
+     /* Position p in third row */
+    margin-left: 10px; /* Adjust the left margin to move it to the right */
+    margin-top: 10px; /* Add top margin */
+    
+    unicode-bidi: isolate;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit title to two lines */
+    -webkit-box-orient: vertical; /* Set vertical layout */
+    max-height: 100%; /* Adjust based on font size and line height */
+}
+.news-item .description p {
+    /* Add your styling here */
+
+    /* Position p in third row */
+    margin-left: 10px; /* Adjust the left margin to move it to the right */
+    margin-top: 10px; /* Add top margin */
+    
+    unicode-bidi: isolate;
+    overflow: hidden; /* Hide overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    max-height: 100%; /* Adjust based on font size and line height */
+}
+
+
+p{
+    
+       text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    padding-right: 10px;
+}
+
+
+
+@media only screen and (max-width: 500px) {
+   
+    #app {
+        max-width: 100%; /* Allow the element to take up the full width of the screen on smaller devices */
+    }
+
+    .grid-container {
+        grid-template-columns: auto; /* Change to a single column layout */
+    }
+
+    .news-item {
+        width: 100%; /* Take up full width minus padding */
+        margin: 0 auto 20px; /* Center horizontally and add bottom margin */
+        padding:20 px;
+    }
+}
+
+
+
